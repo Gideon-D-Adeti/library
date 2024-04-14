@@ -1,0 +1,98 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap');
+
+
+/* Define custom variables */
+:root {
+    --header-bg-color: #3b82f6;
+    --header-color: #fff;
+    --neutral-bg-color: #d4d4d4;
+}
+
+
+/* Apply general styling and reset */
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+header,
+main,
+footer {
+    padding: 32px 64px;
+}
+
+
+/* Style body element */
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: var(--neutral-bg-color);
+    display: grid;
+    grid-template-rows: minmax(8vh, 16vh) auto minmax(4vh, 8vh);
+}
+
+
+/* Style header element */
+header {
+    background-color: var(--header-bg-color);
+    color: var(--header-color);
+    display: flex;
+    align-items: center;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+
+@media (min-width: 320px) and (max-width: 425px) {
+    header {
+        justify-content: center;
+    }
+}
+
+header h1 {
+    font-family: "Montserrat", sans-serif;
+}
+
+
+/* Style main element */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 76vh;
+}
+
+.add-a-book {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.add-a-book:hover {
+    background-color: #a3a3a3;
+}
+
+.add-a-book:active {
+    transform: scale(0.9);
+}
+
+.add-a-book .add-icon {
+    font-size: 24px;
+    margin-left: -6px;
+}
+
+
+/* Style footer element */
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
