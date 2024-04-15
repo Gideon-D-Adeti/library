@@ -96,3 +96,19 @@ footer {
     align-items: center;
     justify-content: center;
 }
+
+footer .author {
+    color: #000;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+footer .author:hover {
+    text-decoration: underline;
+}
+
+footer .author:active {
+    transform: scale(0.95);
+}
