@@ -164,3 +164,34 @@ dialog button[type="submit"] {
     background-color: var(--header-bg-color);
     color: var(--header-color);
 }
+
+dialog[open] {
+    animation: fade-in 0.7s ease-in forwards;
+}
+
+dialog[open]::backdrop {
+    animation: backdrop-fade-in 0.7s ease-in forwards;
+}
+
+/* Animation keyframes */
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        display: none;
+    }
+
+    100% {
+        opacity: 1;
+        display: block;
+    }
+}
+
+@keyframes backdrop-fade-in {
+    0% {
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    100% {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}
