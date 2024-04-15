@@ -4,15 +4,40 @@
 
 /* Define custom variables */
 :root {
-    --header-bg-color: #3b82f6;
-    --header-color: #fff;
-    --neutral-bg-color: #d4d4d4;
+    /* Colors */
+    --blue-color: #3b82f6;
+    --white-color: #fff;
+    --neutral-color: #d4d4d4;
+    --light-black: #0000005e;
+
+    /* Border radius: br */
+    --big-br: 16px;
+    --normal-br: 8px;
+    --small-br: 4px;
+
+    /* Gap */
+    --big-g: 16px;
+    --normal-g: 8px;
+    --small-g: 4px;
+
+    /* Padding */
+    --x-big-p: 32px 64px;
+    --big-p: 16px 32px;
+    --normal-p: 8px 16px;
+    --small-p: 4px 8px;
+
+    /* Others */
+    --shadow-style: 1px 2px 3px var(--light-black);
+
+
 }
 
 
 /* Apply general styling and reset */
 html {
     box-sizing: border-box;
+    position: relative;
+    min-height: 100%;
 }
 
 *,
@@ -23,28 +48,30 @@ html {
     padding: 0;
 }
 
-header,
-main,
-footer {
-    padding: 32px 64px;
+h1,
+h2,
+h3 {
+    font-family: "Montserrat", sans-serif;
 }
 
 
 /* Style body element */
 body {
     font-family: "Roboto", sans-serif;
-    background-color: var(--neutral-bg-color);
+    background-color: var(--neutral-color);
+    margin-bottom: 32px;
 }
 
 
 /* Style header element */
 header {
-    background-color: var(--header-bg-color);
-    color: var(--header-color);
+    color: var(--white-color);
+    background-color: var(--blue-color);
     height: 15vh;
+    padding: var(--x-big-p);
     display: flex;
     align-items: center;
-    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-style);
 }
 
 @media (min-width: 320px) and (max-width: 425px) {
@@ -53,62 +80,89 @@ header {
     }
 }
 
-header h1 {
-    font-family: "Montserrat", sans-serif;
-}
-
 
 /* Style main element */
 main {
+    padding: var(--x-big-p);
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 75vh;
 }
 
-.add-a-book {
+.add-book {
+    width: fit-content;
+    margin: auto;
     display: flex;
     align-items: center;
-    padding: 8px;
-    border-radius: 8px;
+    padding: var(--normal-p);
+    border-radius: var(--normal-br);
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.add-a-book:hover {
-    background-color: #a3a3a3;
+.add-book:hover {
+    background-color: var(--light-black);
 }
 
-.add-a-book:active {
+.add-book:active {
     transform: scale(0.9);
 }
 
-.add-a-book .add-icon {
+.add-book .add-icon {
     font-size: 24px;
-    margin-left: -6px;
+    margin-left: -8px;
+}
+
+.books {
+    width: 100%;
+    align-self: flex-start;
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--big-g);
+}
+
+@media (min-width: 320px) and (max-width: 425px) {
+    .books {
+        align-self: center;
+    }
+}
+
+.book {
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    padding: var(--big-p);
+    border-radius: var(--normal-br);
+    display: flex;
+    flex-direction: column;
+    gap: var(--normal-g);
+    box-shadow: var(--shadow-style);
+}
+
+.book h3 {
+    text-align: center;
 }
 
 
 /* Style footer element */
 footer {
+    padding: var(--normal-p);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-weight: bold;
+    font-style: italic;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 footer .author {
-    color: #000;
-    font-weight: bold;
-    font-style: italic;
+    color: inherit;
     text-decoration: none;
-    transition: transform 0.2s;
 }
 
 footer .author:hover {
     text-decoration: underline;
-}
-
-footer .author:active {
-    transform: scale(0.95);
 }
 
 
@@ -116,44 +170,41 @@ footer .author:active {
 dialog {
     margin: auto;
     border: none;
-    padding: 24px;
-    background-color: var(--neutral-bg-color);
-    border-radius: 8px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    outline: none;
+    padding: var(--big-p);
+    background-color: var(--neutral-color);
+    border-radius: var(--normal-br);
+    box-shadow: var(--shadow-style);
 }
 
 dialog form {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--normal-g);
 }
 
 dialog form div {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 8px;
+    gap: var(--normal-g);
 }
 
 dialog input,
 dialog button {
     font-size: inherit;
-    outline: none;
-    border-radius: 4px;
     border: none;
+    outline: none;
+    border-radius: var(--small-br);
 }
 
 dialog input {
-    padding: 4px;
+    padding: var(--small-p);
 }
 
 dialog button {
-    padding: 4px 8px;
+    padding: var(--normal-p);
     transition: transform 0.3s;
-}
-
-dialog button:active {
-    transform: scale(0.9);
 }
 
 dialog button:hover {
@@ -161,8 +212,13 @@ dialog button:hover {
 }
 
 dialog button[type="submit"] {
-    background-color: var(--header-bg-color);
-    color: var(--header-color);
+    background-color: var(--blue-color);
+    color: var(--white-color);
+}
+
+dialog button[type="button"] {
+    background-color: var(--light-black);
+    color: var(--white-color);
 }
 
 dialog[open] {
@@ -177,12 +233,6 @@ dialog[open]::backdrop {
 @keyframes fade-in {
     0% {
         opacity: 0;
-        display: none;
-    }
-
-    100% {
-        opacity: 1;
-        display: block;
     }
 }
 
@@ -192,6 +242,6 @@ dialog[open]::backdrop {
     }
 
     100% {
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: var(--light-black);
     }
 }
