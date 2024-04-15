@@ -34,8 +34,6 @@ footer {
 body {
     font-family: "Roboto", sans-serif;
     background-color: var(--neutral-bg-color);
-    display: grid;
-    grid-template-rows: minmax(8vh, 16vh) auto minmax(4vh, 8vh);
 }
 
 
@@ -43,10 +41,10 @@ body {
 header {
     background-color: var(--header-bg-color);
     color: var(--header-color);
+    height: 15vh;
     display: flex;
     align-items: center;
     box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
-    z-index: 1;
 }
 
 @media (min-width: 320px) and (max-width: 425px) {
@@ -65,7 +63,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 76vh;
+    height: 75vh;
 }
 
 .add-a-book {
@@ -111,4 +109,58 @@ footer .author:hover {
 
 footer .author:active {
     transform: scale(0.95);
+}
+
+
+/* Style dialog element */
+dialog {
+    margin: auto;
+    border: none;
+    padding: 24px;
+    background-color: var(--neutral-bg-color);
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+dialog form div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+dialog input,
+dialog button {
+    font-size: inherit;
+    outline: none;
+    border-radius: 4px;
+    border: none;
+}
+
+dialog input {
+    padding: 4px;
+}
+
+dialog button {
+    padding: 4px 8px;
+    transition: transform 0.3s;
+}
+
+dialog button:active {
+    transform: scale(0.9);
+}
+
+dialog button:hover {
+    transform: scale(1.1);
+}
+
+dialog button[type="submit"] {
+    background-color: var(--header-bg-color);
+    color: var(--header-color);
 }
