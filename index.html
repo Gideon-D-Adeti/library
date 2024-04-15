@@ -18,6 +18,34 @@
             <span class="add-icon mdi mdi-plus"></span>
             <h2>Add a book</h2>
         </div>
+        <dialog id="add-book-dialog">
+            <form id="add-book-form">
+                <div>
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required><br>
+                </div>
+
+                <div>
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" name="author" required><br>
+                </div>
+
+                <div>
+                    <label for="pages">Pages:</label>
+                    <input type="number" id="pages" name="pages" required><br>
+                </div>
+
+                <div>
+                    <label for="is-read">Read:</label>
+                    <input type="checkbox" id="is-read" name="is-read"><br>
+                </div>
+
+                <div>
+                    <button type="submit">Add Book</button>
+                    <button type="button" id="cancel-button">Cancel</button>
+                </div>
+            </form>
+        </dialog>
         <div class="books">
         </div>
     </main>
