@@ -145,8 +145,7 @@ main {
     color: var(--white-color);
     padding: var(--big-p);
     border-radius: var(--normal-br);
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: var(--normal-g);
     box-shadow: var(--shadow-style);
 }
@@ -155,9 +154,33 @@ main {
     text-align: center;
 }
 
-.book button {
+.book .book-edit-div {
+    place-self: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--normal-g);
+}
+
+.book-edit-div button {
+    margin: auto;
     padding: var(--normal-p);
     background-color: var(--neutral-color);
+    transition: transform 0.3s;
+}
+
+@media (min-width: 320px) and (max-width: 425px) {
+    .book-edit-div button {
+        padding: var(--small-p);
+    }
+}
+
+.book-edit-div button:hover {
+    transform: scale(1.05);
+}
+
+.book-edit-div button:active {
+    transform: scale(0.95);
 }
 
 

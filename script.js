@@ -68,12 +68,22 @@ function displayBooks(libraryBooks) {
     bookDiv.appendChild(readStatusParagraph);
 
     const bookEditDiv = document.createElement("div");
+    bookEditDiv.classList.add("book-edit-div");
+
+    const toggleReadButton = document.createElement("button");
+    toggleReadButton.textContent = isRead ? "Mark Unread" : "Mark Read";
+    toggleReadButton.addEventListener("click", () => {
+      toggleReadStatus(index);
+    });
+
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
     removeButton.addEventListener("click", () => {
       removeBook(index);
     });
+
     bookEditDiv.appendChild(removeButton);
+    bookEditDiv.appendChild(toggleReadButton);
     bookDiv.appendChild(bookEditDiv);
 
     books.appendChild(bookDiv);
@@ -82,6 +92,11 @@ function displayBooks(libraryBooks) {
 
 function removeBook(index) {
   libraryBooks.splice(index, 1);
+  displayBooks(libraryBooks);
+}
+
+function toggleReadStatus(index) {
+  libraryBooks[index].isRead = !libraryBooks[index].isRead;
   displayBooks(libraryBooks);
 }
 
