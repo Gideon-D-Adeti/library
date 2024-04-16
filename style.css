@@ -91,6 +91,10 @@ header {
     }
 }
 
+header .library-icon {
+    font-size: 64px;
+}
+
 
 /* Style main element */
 main {
