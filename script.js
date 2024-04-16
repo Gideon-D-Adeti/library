@@ -1,4 +1,4 @@
-const addBook = document.querySelector(".add-book");
+const addBookDiv = document.querySelector(".add-book");
 const addBookDialog = document.querySelector(".add-book-dialog");
 const cancelButton = document.querySelector(".cancel-button");
 const books = document.querySelector(".books");
@@ -39,13 +39,13 @@ function createBook(title, author, pages, isRead) {
   return new Book(title, author, pages, isRead);
 }
 
-function addBookToLibraryBooks(book) {
+function addBook(book) {
   libraryBooks.push(book);
 }
 
 function displayBooks(libraryBooks) {
   books.innerHTML = "";
-  libraryBooks.map((book) => {
+  libraryBooks.map((book, index) => {
     const { title, author, pages, isRead } = book;
 
     const bookDiv = document.createElement("div");
@@ -67,11 +67,25 @@ function displayBooks(libraryBooks) {
     readStatusParagraph.textContent = `Read: ${isRead ? "Yes" : "No"}`;
     bookDiv.appendChild(readStatusParagraph);
 
+    const bookEditDiv = document.createElement("div");
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    removeButton.addEventListener("click", () => {
+      removeBook(index);
+    });
+    bookEditDiv.appendChild(removeButton);
+    bookDiv.appendChild(bookEditDiv);
+
     books.appendChild(bookDiv);
   });
 }
 
-addBook.addEventListener("click", () => {
+function removeBook(index) {
+  libraryBooks.splice(index, 1);
+  displayBooks(libraryBooks);
+}
+
+addBookDiv.addEventListener("click", () => {
   addBookDialog.showModal();
 });
 
@@ -86,9 +100,10 @@ addBookForm.addEventListener("submit", (event) => {
 
   const book = createBook(title, author, pages, isRead);
 
-  addBookToLibraryBooks(book);
+  addBook(book);
 
   displayBooks(libraryBooks);
+
   clearInputValues();
   addBookDialog.close();
 });
