@@ -1,12 +1,3 @@
-const addBookDiv = document.querySelector(".add-book");
-const addBookDialog = document.querySelector(".add-book-dialog");
-const cancelButton = document.querySelector(".cancel-button");
-const books = document.querySelector(".books");
-
-const addBookForm = addBookDialog.querySelector("form");
-
-const libraryBooks = [];
-
 class Book {
   constructor(title, author, pages, isRead = false) {
     this.title = title;
@@ -16,111 +7,124 @@ class Book {
   }
 }
 
-function getInputValues() {
-  const title = addBookForm.querySelector("#title").value;
-  const author = addBookForm.querySelector("#author").value;
-  const pages = addBookForm.querySelector("#pages").value;
-  const isRead = addBookForm.querySelector("#is-read").checked;
+class Library {
+  constructor() {
+    this.books = [];
+    this.addBookDiv = document.querySelector(".add-book");
+    this.addBookDialog = document.querySelector(".add-book-dialog");
+    this.cancelButton = document.querySelector(".cancel-button");
+    this.booksContainer = document.querySelector(".books");
+    this.addBookForm = this.addBookDialog.querySelector("form");
 
-  return {
-    title: title,
-    author: author,
-    pages: pages,
-    isRead: isRead,
-  };
-}
-
-function clearInputValues() {
-  addBookForm.querySelector("#title").value = "";
-  addBookForm.querySelector("#author").value = "";
-  addBookForm.querySelector("#pages").value = "";
-  addBookForm.querySelector("#is-read").checked = false;
-}
-
-function createBook(title, author, pages, isRead) {
-  return new Book(title, author, pages, isRead);
-}
-
-function addBook(book) {
-  libraryBooks.push(book);
-}
-
-function displayBooks(libraryBooks) {
-  books.innerHTML = "";
-  libraryBooks.map((book, index) => {
-    const { title, author, pages, isRead } = book;
-
-    const bookDiv = document.createElement("div");
-    bookDiv.classList.add("book");
-
-    const titleHeading = document.createElement("h3");
-    titleHeading.textContent = title;
-    bookDiv.appendChild(titleHeading);
-
-    const authorParagraph = document.createElement("p");
-    authorParagraph.textContent = `Author: ${author}`;
-    bookDiv.appendChild(authorParagraph);
-
-    const pagesParagraph = document.createElement("p");
-    pagesParagraph.textContent = `Pages: ${pages}`;
-    bookDiv.appendChild(pagesParagraph);
-
-    const readStatusParagraph = document.createElement("p");
-    readStatusParagraph.textContent = `Read: ${isRead ? "Yes" : "No"}`;
-    bookDiv.appendChild(readStatusParagraph);
-
-    const bookEditDiv = document.createElement("div");
-    bookEditDiv.classList.add("book-edit-div");
-
-    const toggleReadButton = document.createElement("button");
-    toggleReadButton.textContent = isRead ? "Mark Unread" : "Mark Read";
-    toggleReadButton.addEventListener("click", () => {
-      toggleReadStatus(index);
+    this.addBookDiv.addEventListener("click", () => {
+      this.addBookDialog.showModal();
     });
 
-    const removeButton = document.createElement("button");
-    removeButton.textContent = "Remove";
-    removeButton.addEventListener("click", () => {
-      removeBook(index);
+    this.cancelButton.addEventListener("click", () => {
+      this.clearInputValues();
+      this.addBookDialog.close();
     });
 
-    bookEditDiv.appendChild(removeButton);
-    bookEditDiv.appendChild(toggleReadButton);
-    bookDiv.appendChild(bookEditDiv);
+    this.addBookForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      this.addBookFromForm();
+    });
+  }
 
-    books.appendChild(bookDiv);
-  });
+  getInputValues() {
+    const title = this.addBookForm.querySelector("#title").value;
+    const author = this.addBookForm.querySelector("#author").value;
+    const pages = this.addBookForm.querySelector("#pages").value;
+    const isRead = this.addBookForm.querySelector("#is-read").checked;
+
+    return {
+      title,
+      author,
+      pages,
+      isRead,
+    };
+  }
+
+  clearInputValues() {
+    this.addBookForm.querySelector("#title").value = "";
+    this.addBookForm.querySelector("#author").value = "";
+    this.addBookForm.querySelector("#pages").value = "";
+    this.addBookForm.querySelector("#is-read").checked = false;
+  }
+
+  createBook(title, author, pages, isRead) {
+    return new Book(title, author, pages, isRead);
+  }
+
+  addBook(book) {
+    this.books.push(book);
+    this.displayBooks();
+  }
+
+  removeBook(index) {
+    this.books.splice(index, 1);
+    this.displayBooks();
+  }
+
+  toggleReadStatus(index) {
+    this.books[index].isRead = !this.books[index].isRead;
+    this.displayBooks();
+  }
+
+  displayBooks() {
+    this.booksContainer.innerHTML = "";
+    this.books.forEach((book, index) => {
+      const { title, author, pages, isRead } = book;
+
+      const bookDiv = document.createElement("div");
+      bookDiv.classList.add("book");
+
+      const titleHeading = document.createElement("h3");
+      titleHeading.textContent = title;
+      bookDiv.appendChild(titleHeading);
+
+      const authorParagraph = document.createElement("p");
+      authorParagraph.textContent = `Author: ${author}`;
+      bookDiv.appendChild(authorParagraph);
+
+      const pagesParagraph = document.createElement("p");
+      pagesParagraph.textContent = `Pages: ${pages}`;
+      bookDiv.appendChild(pagesParagraph);
+
+      const readStatusParagraph = document.createElement("p");
+      readStatusParagraph.textContent = `Read: ${isRead ? "Yes" : "No"}`;
+      bookDiv.appendChild(readStatusParagraph);
+
+      const bookEditDiv = document.createElement("div");
+      bookEditDiv.classList.add("book-edit-div");
+
+      const toggleReadButton = document.createElement("button");
+      toggleReadButton.textContent = isRead ? "Mark Unread" : "Mark Read";
+      toggleReadButton.addEventListener("click", () => {
+        this.toggleReadStatus(index);
+      });
+
+      const removeButton = document.createElement("button");
+      removeButton.textContent = "Remove";
+      removeButton.addEventListener("click", () => {
+        this.removeBook(index);
+      });
+
+      bookEditDiv.appendChild(removeButton);
+      bookEditDiv.appendChild(toggleReadButton);
+      bookDiv.appendChild(bookEditDiv);
+
+      this.booksContainer.appendChild(bookDiv);
+    });
+  }
+
+  addBookFromForm() {
+    const { title, author, pages, isRead } = this.getInputValues();
+    const book = this.createBook(title, author, pages, isRead);
+    this.addBook(book);
+    this.clearInputValues();
+    this.addBookDialog.close();
+  }
 }
 
-function removeBook(index) {
-  libraryBooks.splice(index, 1);
-  displayBooks(libraryBooks);
-}
-
-function toggleReadStatus(index) {
-  libraryBooks[index].isRead = !libraryBooks[index].isRead;
-  displayBooks(libraryBooks);
-}
-
-addBookDiv.addEventListener("click", () => {
-  addBookDialog.showModal();
-});
-
-cancelButton.addEventListener("click", () => {
-  addBookDialog.close();
-});
-
-addBookForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const { title, author, pages, isRead } = getInputValues();
-
-  const book = createBook(title, author, pages, isRead);
-
-  addBook(book);
-
-  displayBooks(libraryBooks);
-
-  clearInputValues();
-  addBookDialog.close();
-});
+const library = new Library();
