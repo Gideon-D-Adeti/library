@@ -7,11 +7,13 @@ const addBookForm = addBookDialog.querySelector("form");
 
 const libraryBooks = [];
 
-function Book(title, author, pages, isRead = false) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
+class Book {
+  constructor(title, author, pages, isRead = false) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.isRead = isRead;
+  }
 }
 
 function getInputValues() {
